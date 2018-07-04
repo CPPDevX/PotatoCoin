@@ -29,7 +29,7 @@ Output the generated blockchain to console.
 ```
 console.log(JSON.stringify(blockchain, null, 2));
 ```
-## Exaample Execution
+## Example Execution
 Start using `npm` by running the command.
 ```
 npm start
