@@ -32,10 +32,15 @@ console.log(JSON.stringify(blockchain, null, 2));
 
 ## Todo
 -- Wallets need to be implemented.
+
 -- Interactive console needs to be implemented.
+
 -- JSON RPC Needs to be implemented.
+
 -- Basic Stock Block Explorer to be implemented.
+
 -- Mining needs to be implemented.
+
 -- Consensus algorithm needs to be implemented.
 
 ## Notes
