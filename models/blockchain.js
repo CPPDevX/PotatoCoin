@@ -35,6 +35,12 @@ class Blockchain {
 
     generateHash(block) {
         let hash = SHA512(block.key).toString()
+
+        while(!hash.startsWith("0000")) {
+            block.nonce += 1
+            hash = SHA512(block.key).toString();
+            console.log(hash)
+          }
         return hash
 
     }
