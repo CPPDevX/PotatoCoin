@@ -13,8 +13,10 @@ blockchain.addBlock(block)
 
 let anotherTransaction = new Transaction("Waller","Daz",10)
 
+// Adding Next Block
 let block1 = blockchain.getNextBlock([anotherTransaction])
 blockchain.addBlock(block1)
 
+// 
 console.log("Proof Of Concept -- PotatoCoin -- Alpha");
 console.log(JSON.stringify(blockchain, null, 2));
