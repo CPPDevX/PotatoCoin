@@ -6,10 +6,6 @@ let Blockchain = require('./models/blockchain')
 let genesisBlock = new Block()
 let blockchain = new Blockchain(genesisBlock)
 
-// create a transaction
-
-
-
 for(var i = 0; i < 10; i++){
     let transaction = new Transaction('Waller','Adam',i)
     let block = blockchain.getNextBlock([transaction])
