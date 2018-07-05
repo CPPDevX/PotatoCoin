@@ -4,7 +4,7 @@
 A bare basics blockchain implementation written in javascript.
 
 
-## Example
+## Example Usage
 Create a genesis block to initiate the blockchain
 
 ```
@@ -29,7 +29,16 @@ Output the generated blockchain to console.
 ```
 console.log(JSON.stringify(blockchain, null, 2));
 ```
+## Example Execution
+Start using `npm` by running the command.
+```
+npm start
+```
 
+Start using `yarn` by running the command.
+```
+yarn start
+```
 ## Todo
 -- Wallets need to be implemented.
 
