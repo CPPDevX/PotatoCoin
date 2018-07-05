@@ -22,8 +22,10 @@
   "license": "ISC",
   "dependencies": {
     "bs58": "^4.0.1",
+    "coinkey": "^3.0.0",
     "crypto-js": "*",
     "elliptic": "^6.4.0",
+    "es6-class-privates": "0.0.6",
     "js-sha256": "^0.9.0",
     "ripemd160": "^2.0.2",
     "secure-random": "^1.1.1"

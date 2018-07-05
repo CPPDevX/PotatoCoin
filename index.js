@@ -5,9 +5,9 @@ let Wallet = require('./models/wallet')
 
 var walletManager = new Wallet();
 
-let wallet = walletManager.createNewWallet();
+let wallet = walletManager.loadWalletFromPrivKey('12b0f93cfa1bcb2141f8866b4ad08bb587007b566f2dd2c7b66e4c6576ffd04b');
 
-console.log(wallet.privateKey);
+console.log(wallet.publicAddress);
 
 /*
 // create genesis block

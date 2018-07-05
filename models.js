@@ -1,1 +1,1 @@
-module.exports = {Wallet,Transaction,Block}
+module.exports = {GenHelper,Wallet,Transaction,Block}
