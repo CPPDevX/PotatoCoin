@@ -1,7 +1,7 @@
 let Block = require('./block')
 var SHA512 = require("crypto-js/sha512");
 
-class Blockchain {
+class Blockchain {  
     constructor(genesisBlock) {
         this.blocks = []
         this.addBlock(genesisBlock)
@@ -18,7 +18,7 @@ class Blockchain {
     
     getNextBlock(transactions) {
         let block = new Block()
-
+        
         transactions.forEach(function (transaction) {
             block.addTransaction(transaction)
         })
