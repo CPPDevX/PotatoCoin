@@ -1,4 +1,4 @@
-let WalletGenHelper = require('../lib/crypto/wallet/genhelper');
+let WalletGenHelper = require('../lib/helpers/genhelper');
 let helper = new WalletGenHelper();
 let CoinKey = require('coinkey');
 
