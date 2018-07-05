@@ -1,1 +1,1 @@
-module.exports = {Transaction,Block}
+module.exports = {Wallet,Transaction,Block}
