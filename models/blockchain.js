@@ -1,51 +1,88 @@
 let Block = require('./block')
-var SHA512 = require("crypto-js/sha512");
+let Transaction = require('./transaction')
+let Genesis = require('./genesisblock')
 
-class Blockchain {  
-    constructor(genesisBlock) {
-        this.blocks = []
-        this.addBlock(genesisBlock)
+class Blockchain {
+    constructor() {
+        let genesisBlock = new Genesis();
+        this.chain = [genesisBlock]
+        this.difficulty = 2;
+
+        this.pendingTransactions = [];
+        this.miningReward = 10;
     }
 
-    addBlock(block) {
-        if (this.blocks.length == 0) {
-            block.previousHash = "0000000000000000"
-            block.hash = this.generateHash(block)
+    getNewestBlockHeight() {
+        return this.chain[this.chain.length - 1];
+    }
+    getCurrentWorkHeight() {
+        return this.chain.length;
+    }
+
+    createTx(transaction) {
+        if(this.isChainValid === false){
+            console.log("Chain has been invalidated, closing PotatoCoind.");
+            close();
+
         }
 
-        this.blocks.push(block)
+        if(this.getAddressBalance(transaction.fromAddress) >= transaction.amount){
+            this.pendingTransactions.push(transaction);
+        }else{
+            console.log("Not Enough funds in " + transaction.fromAddress + " To complete transaction.");
+        }
+    }
+
+    mineTxPool(miningRewardAddress) {
+        // Create new block with all pending transactions and mine it..
+        let block = new Block(Date.now(), this.pendingTransactions, this.getNewestBlockHeight().hash);
+        block.mineBlock(this.difficulty);
+
+        // Add the newly mined block to the chain
+        this.chain.push(block);
+
+        // Reset the pending transactions and send the mining reward
+        this.pendingTransactions = [
+            new Transaction('spudbase', miningRewardAddress, this.miningReward)
+        ];
+    }
+
+    isChainValid() {
+        for (let i = 1; i < this.chain.length; i++) {
+            const currentBlock = this.chain[i];
+            const previousBlock = this.chain[i - 1];
+
+            if (currentBlock.hash !== currentBlock.calculateHash()) {
+                return false;
+            }
+
+            if (currentBlock.previousHash !== previousBlock.hash) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    getAddressBalance(address) {
+        let balance = 0; // you start at zero!
+        // Loop over each block and each transaction inside the block
+        for (const block of this.chain) {
+            for (const trans of block.transactions) {
+
+                // If the given address is the sender -> reduce the balance
+                if (trans.fromAddress == address) {
+                    balance -= trans.amount;
+                }
+
+                // If the given address is the receiver -> increase the balance
+                if (trans.toAddress == address) {
+                    balance += trans.amount;
+                }
+        }
     }
     
-    getNextBlock(transactions) {
-        let block = new Block()
-        
-        transactions.forEach(function (transaction) {
-            block.addTransaction(transaction)
-        })
-
-        let previousBlock = this.getPreviousBlock()
-        block.index = this.blocks.length
-        block.previousHash = previousBlock.hash
-        block.hash = this.generateHash(block)
-        return block
+        return balance;
     }
-
-    generateHash(block) {
-        let hash = SHA512(block.key).toString()
-
-        while(!hash.startsWith("0000")) {
-            block.nonce += 1
-            hash = SHA512(block.key).toString();
-            console.log(hash)
-          }
-        return hash
-
-    }
-
-    getPreviousBlock() {
-        return this.blocks[this.blocks.length - 1]
-    }
-
 }
 
 module.exports = Blockchain
